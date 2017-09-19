@@ -1,0 +1,13 @@
+# All Processing folders
+./examples
+
+modes
+./templates
+./tools
+./libraries
+
+# All folders I don't want to track
+not-tracked
+
+# Temp files
+*.swp
