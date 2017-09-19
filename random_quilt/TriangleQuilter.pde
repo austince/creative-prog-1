@@ -2,7 +2,9 @@
 // page 261
 class TriangleQuilter extends Quilter {
   int x = 0, y = 0; // position on quilt
-
+  private color lineColor = color(0);
+  private int lineWeight = 2;
+  
   TriangleQuilter(int id) {
     super(id);
   }
@@ -12,6 +14,14 @@ class TriangleQuilter extends Quilter {
     x = xPos;
     y = yPos;
   }
+  
+  public void setLineColor(color c) {
+   this.lineColor = c; 
+  }
+  
+  public void setLineWeight(int weight) {
+    this.lineWeight = weight;
+  }
 
   @Override
     public int getNumberOfSteps() {
@@ -20,7 +30,8 @@ class TriangleQuilter extends Quilter {
 
   @Override
     void drawStep(int step) {
-    strokeWeight(2);
+    strokeWeight(lineWeight);
+    stroke(lineColor);
     int l = cSquare.getWidth();
 
     if (step == 1) {
@@ -99,6 +110,7 @@ class TriangleQuilter extends Quilter {
       return null;
     }
 
+    // Find the square position the closest to x, y
     Integer[] minDistPos = availPositions.get(0);
     double minDist = Math.hypot(x - minDistPos[0], y - minDistPos[1]);
 
@@ -106,8 +118,8 @@ class TriangleQuilter extends Quilter {
       Integer[] nextPos = availPositions.get(i);
       double dist = Math.hypot(x - nextPos[0], y - nextPos[1]);
       if (dist < minDist) {
-       minDist = dist;
-       minDistPos = nextPos;
+        minDist = dist;
+        minDistPos = nextPos;
       }
     }
 

@@ -3,12 +3,11 @@
  */
 class Quilter {
   boolean isDoneWithSquare = true;
-  boolean isDoneQuilting = false;
 
   Square cSquare;
   int id = -1;
   int currentStep = 0;
-
+  
   public Quilter(int id) {
     this.id = id;
   }

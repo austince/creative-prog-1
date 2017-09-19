@@ -4,14 +4,14 @@ import java.util.List;
 
 Quilt quilt;
 Quilter[] quilters;
-final int NUM_QUILTERS = 1;
-final int FRAME_RATE = 1000;
+final int NUM_QUILTERS = 20;
+final int FRAME_RATE = 60;
 int stepNum = 0;
 
 void setup() {
   size(800, 800);
   frameRate(FRAME_RATE);
-  quilt = new Quilt(0, 0, width, height, 6);
+  quilt = new Quilt(0, 0, width, height, 60);
   quilt.drawBackground(color(255));
   //quilt.drawQuiltGrid();
 
@@ -31,7 +31,9 @@ void setup() {
     //  quilters[i] = new TriangleQuilter(i);
     //  break;
     //}
-    quilters[i] = new TriangleQuilter(i);
+    TriangleQuilter q = new TriangleQuilter(i);
+    q.setLineWeight(1);
+    quilters[i] = q;
   }
 }
 
@@ -58,8 +60,10 @@ void draw() {
   debug("Quilter order: ");
   debugArray(orderList);
 
-  for (Integer i : orderList) {
-    Quilter quilter = quilters[i];
+  // Only allow the top half of the list to take a turn to simulate speed of quilters?
+  for (int i = 0; i <= NUM_QUILTERS / 2; i++) {
+    int quilterId = orderList.get(i);
+    Quilter quilter = quilters[quilterId];
 
     if (quilter.isDoneWithSquare) {
       Square nextSquare = quilter.grabNextSquare(quilt);
