@@ -45,7 +45,6 @@ void setup() {
  
  */
 void draw() {
-  boolean allAssigned = false;
   boolean anyQuilterStillWorking = false;
   // All drawing is done in threads
   // if quilters are done, give them a new square
@@ -55,7 +54,7 @@ void draw() {
   for (int i = 0; i < NUM_QUILTERS; i++) order[i] = new Integer(i);
   List<Integer> orderList = Arrays.asList(order);
   Collections.shuffle(orderList);
-
+  
   debug("Quilter order: ");
   debugArray(orderList);
 
@@ -63,30 +62,26 @@ void draw() {
     Quilter quilter = quilters[i];
 
     if (quilter.isDoneWithSquare) {
-      Square nextSquare = quilt.getNextSquare();
+      Square nextSquare = quilter.grabNextSquare(quilt);
 
       if (nextSquare != null) {
         debug("Got another square for quilter ", quilter.id, "!");
         quilter.setNextSquare(nextSquare);
         anyQuilterStillWorking = true;
         debug("Now at step: ", quilter.currentStep, " of ", quilter.getNumberOfSteps());
-      } else {
-        debug("All squares assigned"); 
-        allAssigned = true;
       }
     } else {
       anyQuilterStillWorking = true;
-      debug("Quilter ", quilter.id, " drawing step ", quilter.currentStep, " of ", quilter.getNumberOfSteps());
+      debug("Quilter ", quilter.id, " drawing step", quilter.currentStep, "of", quilter.getNumberOfSteps());
       quilter.drawNext();
     }
   }
 
-
-
-  if (allAssigned && !anyQuilterStillWorking) {
-    debug("All done, stopping!"); //<>//
-    noLoop(); // finish the process //<>//
+  if (quilt.allSquaresTaken() && !anyQuilterStillWorking) {
+    debug("All done, stopping", "!"); //<>//
+     //<>//
     save("Cawley-EdwardsAustin_QUILT.jpg"); //<>//
+    noLoop(); // finish the process
   } else {
     stepNum++;
     save("steps/" + "QUILT-" + stepNum + ".jpg");

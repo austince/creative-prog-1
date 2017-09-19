@@ -3,6 +3,8 @@
  */
 class Quilter {
   boolean isDoneWithSquare = true;
+  boolean isDoneQuilting = false;
+
   Square cSquare;
   int id = -1;
   int currentStep = 0;
@@ -10,9 +12,25 @@ class Quilter {
   public Quilter(int id) {
     this.id = id;
   }
-  
+
   public int getNumberOfSteps() {
-     return 3; 
+    return 3;
+  }
+
+  /**
+   Default is to grab in order
+   */
+  public Square grabNextSquare(Quilt quilt) {
+    for (int i = 0; i < quilt.numSquaresPerSide; i++) {
+      for (int j = 0; j < quilt.numSquaresPerSide; j++) {
+        if (!quilt.squaresTaken[i][j]) {
+          // give this square back if it's not already taken
+          return quilt.takeSquare(i, j);
+        }
+      }
+    }
+
+    return null;
   }
 
   public void setNextSquare(Square square) {
@@ -36,28 +54,16 @@ class Quilter {
   }
 
   /**
-  Default steps 
-  */
+   Default steps 
+   */
   void drawStep(int step) {
-    switch (step) {
-    case 1:
-      drawStepOne();
-      break;
-    case 2:
-      drawStepTwo();
-      break;
+    int w = cSquare.getWidth();
+    if (step == 1) {
+      fill(255);
+      ellipse(w / 2, w / 2, 10, 10);
+    } else if (step == 2) {
+      fill(100, 150, 100);
+      rect(0, 0, w / 2, w);
     }
-  }
-
-  private void drawStepOne() {
-    int w = cSquare.getWidth();
-    fill(255);
-    ellipse(w / 2, w / 2, 10, 10);
-  }
-
-  private void drawStepTwo() {
-    int w = cSquare.getWidth();
-    fill(100, 150, 100);
-    rect(0, 0, w / 2, w);
   }
 }

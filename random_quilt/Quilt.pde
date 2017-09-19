@@ -2,8 +2,9 @@ class Quilt {
   int topX, topY, bottomX, bottomY;
   int qWidth, qHeight;
   int sWidth;
-  private int numSquaresPerSide;
+  int numSquaresPerSide;
   private boolean[][] squaresTaken;
+  Square[][] squares;
 
   Quilt(int x, int y, int w, int h, int numSquaresPerSide) {
     topX = x;
@@ -15,6 +16,12 @@ class Quilt {
     sWidth = w / numSquaresPerSide;
     this.numSquaresPerSide = numSquaresPerSide;
     squaresTaken = new boolean[numSquaresPerSide][numSquaresPerSide]; // defaults to false
+    squares = new Square[numSquaresPerSide][numSquaresPerSide]; // defaults to null
+    for (int i = 0; i < numSquaresPerSide; i++) {
+      for (int j = 0; j < numSquaresPerSide; j++) {
+        squares[i][j] = new Square(i * sWidth, j * sWidth, sWidth);
+      }
+    }
   }
 
   void drawQuiltGrid() {
@@ -26,34 +33,28 @@ class Quilt {
       line(topX, j, bottomX, j);
     }
   }
-  
+
   void drawBackground(color quiltColor) {
     fill(quiltColor);
     rect(topX, topY, bottomX, bottomY);
   }
-  
-  Square getNextSquare() {
-    // Just get the next square in line for now
-    // If at the end
-    Square nextSquare = null;
 
+  Square takeSquare(int x, int y) {
+    quilt.squaresTaken[x][y] = true;
+    
+          return quilt.squares[x][y];
+  }
+
+  boolean allSquaresTaken() {
     for (int i = 0; i < numSquaresPerSide; i++) {
       for (int j = 0; j < numSquaresPerSide; j++) {
         if (!squaresTaken[i][j]) {
-          // give this square back if it's not already taken
-          squaresTaken[i][j] = true;
-          nextSquare = new Square(i * sWidth, j * sWidth, sWidth);
-          break;
+          return false;
         }
       }
-
-      if (nextSquare != null) {
-        // get out of both loops if found a square
-        break;
-      }
     }
-
-    return nextSquare;
+    
+    return true;
   }
 }
 
