@@ -9,9 +9,9 @@ final int FRAME_RATE = 60;
 int stepNum = 0;
 
 void setup() {
-  size(800, 800);
+  size(600, 600);
   frameRate(FRAME_RATE);
-  quilt = new Quilt(0, 0, width, height, 60);
+  quilt = new Quilt(0, 0, width, height, 30);
   quilt.drawBackground(color(255));
   //quilt.drawQuiltGrid();
 
@@ -80,6 +80,17 @@ void draw() {
       quilter.drawNext();
     }
   }
+  
+  // Check if any in the bottom half of the list are still working
+   for (int i = NUM_QUILTERS / 2; i < NUM_QUILTERS; i++) {
+    int quilterId = orderList.get(i);
+    Quilter quilter = quilters[quilterId];
+    
+    if (!quilter.isDoneWithSquare) {
+     anyQuilterStillWorking = true;
+     break;
+    }
+   }
 
   if (quilt.allSquaresTaken() && !anyQuilterStillWorking) {
     debug("All done, stopping", "!"); //<>//
