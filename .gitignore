@@ -16,3 +16,5 @@ not-tracked
 *.zip
 
 libraries/
+
+tools/
