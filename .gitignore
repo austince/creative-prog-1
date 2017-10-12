@@ -11,3 +11,6 @@ not-tracked
 
 # Temp files
 *.swp
+
+# Submissions
+*.zip
