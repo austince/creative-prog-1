@@ -24,8 +24,8 @@ boolean drawBgRects = true;
 
 void setup() {
   //size(1600, 800);
-  size(1280, 1024);
-  //size(1920, 1080);
+  //size(1280, 1024);
+  size(1920, 1080);
   font = loadFont("Colfax-Thin-48.vlw");
   textFont(font, 32);
   noCursor();
