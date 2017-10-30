@@ -1,11 +1,12 @@
-import java.util.Collections; //<>// //<>// //<>// //<>// //<>//
+import java.util.Collections;  //<>// //<>// //<>// //<>//
 import java.util.Arrays;
 import java.util.List;
 
 Quilt quilt;
 Quilter[] quilters;
 final int NUM_SQ_P_SIDE = 25;
-final int NUM_QUILTERS = 4;
+//final int NUM_QUILTERS = NUM_SQ_P_SIDE * 4;
+final int NUM_QUILTERS = NUM_SQ_P_SIDE;
 final int FRAME_RATE = 30;
 final double QUILTER_TURN_RATIO = .25;
 int stepNum = 0;

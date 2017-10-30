@@ -41,8 +41,7 @@ class Quilt {
 
   Square takeSquare(int x, int y) {
     quilt.squaresTaken[x][y] = true;
-    
-          return quilt.squares[x][y];
+    return quilt.squares[x][y];
   }
 
   boolean allSquaresTaken() {
@@ -53,7 +52,7 @@ class Quilt {
         }
       }
     }
-    
+
     return true;
   }
 }
